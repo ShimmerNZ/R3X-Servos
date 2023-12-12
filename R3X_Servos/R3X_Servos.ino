@@ -14,6 +14,8 @@
 #define OTHER_ARDUINO 10
 #define MY_ADDRESS 25
 
+bool playing = false;
+
 SoftwareSerial maestroSerial(10, 11);
 MicroMaestro maestro(maestroSerial);
 static Communication Comm(MY_ADDRESS);
@@ -33,6 +35,8 @@ int servoSpeed[] = {50, 50, 50, 50, 50, 50, 50, 50}; // Adjust as needed
 //  microseconds)/(10 milliseconds) / (80 milliseconds).
 int servoAcceleration[] = {10, 10, 10, 10, 10, 10, 10, 10}; // Adjust as needed
 
+int clipLength[] = {0,2,5,8,4,6,8,1,6,7,3,14,1,5,7,8,12,7,3,2,3,1,3,190,160,173,147,130,141,178,140,179,165,98,170,176,172,163,157,60,187};
+
 void setup() {
   maestroSerial.begin(9600);
   Serial.begin(115200);
@@ -47,10 +51,24 @@ void setup() {
 long randNumber;
 
 void loop() {
-  delay(6000); // Adjust delay as needed
   bounce(800);
-  int randNum = random(22);
-  Comm.Transmit(OTHER_ARDUINO, randNum);
+  randNumber = random(1,40);
+  // Create a temporary buffer to hold the combined string
+  char buffer[20];  // Adjust the size based on your needs
+  // Format the string "Volume,10" into the buffer
+  snprintf(buffer, sizeof(buffer), "Song,%d",randNumber);
+  Comm.Transmit(OTHER_ARDUINO,buffer);
+    if (randNumber <=23) {
+      Comm.Transmit(OTHER_ARDUINO,"Mode,4");
+    }
+    else {
+      Comm.Transmit(OTHER_ARDUINO,"Mode,10");
+    }
+    Serial.print("song: ");
+    Serial.print(randNumber);
+    Serial.print("   length: ");
+    Serial.println(clipLength[randNumber]);
+    delay(clipLength[randNumber]*1000);
 }
 
 
