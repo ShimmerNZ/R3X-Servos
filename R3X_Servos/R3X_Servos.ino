@@ -53,6 +53,7 @@ void setup() {
 
 
 void loop() {
+  //play 3 clips and then a song
   for (int i=1;i<=3;i++){
     playclip();
   }
@@ -63,7 +64,6 @@ void bounce(float tempo) {
   maestro.setAcceleration(6,40);
   maestro.setTarget(NECKLIFT, 5000);
   maestro.setTarget(NECK, servoMin[NECK]);
-  //maestro.setTarget(VISOR, servoMin[VISOR]);
   maestro.setTarget(VISOR, 5960);
   maestro.setTarget(WRIST, servoMin[WRIST]);
   randNumber = random(servoMin[TOP_RING],servoMax[TOP_RING]);
@@ -98,7 +98,6 @@ void bounce(float tempo) {
   
   maestro.setTarget(NECKLIFT, 5000);
   maestro.setTarget(NECK, servoMin[NECK]);
-  //maestro.setTarget(VISOR, servoMin[VISOR]);
   maestro.setTarget(VISOR, 5960);
   maestro.setTarget(WRIST, servoMin[WRIST]);
   randNumber = random(servoMin[TOP_RING],servoMax[TOP_RING]);
@@ -126,7 +125,7 @@ void bounce(float tempo) {
   randNumber = random(servoMin[BOTTOM_RING],servoMax[BOTTOM_RING]);
   maestro.setTarget(BOTTOM_RING, randNumber);
   
-     delay((30/tempo)*1000);
+  delay((30/tempo)*1000);
 
   maestro.setTarget(NECK, servoMin[NECK]);
   maestro.setTarget(VISOR, 6200);
@@ -147,7 +146,6 @@ void playsong() {
     Serial.print(randNumber);
     Serial.print("   length: ");
     Serial.println(clipLength[randNumber]);
-    //delay(clipLength[randNumber]*1000);
     float bounceDuration = float(clipLength[song])/((60/float(clipTempo[song]))*4);
     for (float i=1;i<=int(bounceDuration);i++) {
       bounce(clipTempo[song]);
@@ -157,7 +155,7 @@ void playsong() {
 }
 
 void playclip() {
-  randNumber = random(1,11);
+  randNumber = random(1,22);
   // Create a temporary buffer to hold the combined string
   char buffer[20];  // Adjust the size based on your needs
   // Format the string "Song,10" into the buffer (options - Song,Mode,Volume)
