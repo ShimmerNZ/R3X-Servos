@@ -34,7 +34,7 @@ int servoSpeed[] = {0, 0, 0, 0, 0, 0, 0, 0}; // Adjust as needed
 //  setAcceleration takes channel number you want to limit and
 //  the acceleration limit value from 0 to 255 in units of (1/4
 //  microseconds)/(10 milliseconds) / (80 milliseconds).
-int servoAcceleration[] = {40, 40, 40, 6, 10, 5, 20, 10}; // Adjust as needed
+int servoAcceleration[] = {10, 60, 40, 6, 10, 5, 100, 10}; // Adjust as needed
 
 int clipLength[] = {0,3,6,9,5,7,9,2,7,8,4,15,2,6,8,9,13,8,4,3,4,2,4,190,160,173,147,130,141,178,140,179,165,98,170,176,172,163,157,60,187};
 int clipTempo[] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,142,120,130,115,132,120,126,91,116,117,124,92,105,120,105,96,123,112};
@@ -54,67 +54,69 @@ void setup() {
 
 void loop() {
   //play 3 clips and then a song
-  for (int i=1;i<=3;i++){
+  for (int i=1;i<=1;i++){
     playclip();
   }
   playsong();
 }
 
 void bounce(float tempo) {
-  maestro.setAcceleration(6,40);
   maestro.setTarget(NECKLIFT, 5000);
-  maestro.setTarget(NECK, servoMin[NECK]);
-  maestro.setTarget(VISOR, 5960);
+  maestro.setTarget(NECK, servoMax[NECK]);
+  maestro.setTarget(VISOR, 6000);
   maestro.setTarget(WRIST, servoMin[WRIST]);
   randNumber = random(servoMin[TOP_RING],servoMax[TOP_RING]);
   maestro.setTarget(TOP_RING, randNumber);
   randNumber = random(servoMin[NECK_ROTATE],servoMax[NECK_ROTATE]);
   maestro.setTarget(NECK_ROTATE, randNumber);
-  
+   
   delay((30/tempo)*1000);
 
-  maestro.setTarget(NECK, servoMax[NECK]);
-  maestro.setTarget(VISOR, 6200);
-
-  delay((30/tempo)*1000);
-  
-  maestro.setTarget(NECKLIFT, 7000);
+  maestro.setTarget(NECKLIFT, 6500);
   maestro.setTarget(NECK, servoMin[NECK]);
-  maestro.setTarget(VISOR, 5960);
-  maestro.setTarget(WRIST, servoMax[WRIST]);
+  maestro.setTarget(VISOR, 6150);
+ 
+  delay((30/tempo)*1000);
+
+  maestro.setTarget(NECKLIFT, 5000);
+  maestro.setTarget(NECK, servoMax[NECK]);
+  maestro.setTarget(VISOR, 6000);
+   maestro.setTarget(WRIST, servoMax[WRIST]);
   randNumber = random(servoMin[TOP_RING],servoMax[TOP_RING]);
   maestro.setTarget(TOP_RING, randNumber);
   randNumber = random(servoMin[ELBOW],servoMax[ELBOW]);
   maestro.setTarget(ELBOW, randNumber);
   randNumber = random(servoMin[NECK_ROTATE],servoMax[NECK_ROTATE]);
   maestro.setTarget(NECK_ROTATE, randNumber);
-  
-   delay((30/tempo)*1000);
+   
+  delay((30/tempo)*1000);
 
+  maestro.setTarget(NECKLIFT, 6500);
   maestro.setTarget(NECK, servoMin[NECK]);
-  maestro.setTarget(VISOR, 6200);
+ maestro.setTarget(VISOR, 6150);
 
   delay((30/tempo)*1000);
-  
+
   maestro.setTarget(NECKLIFT, 5000);
-  maestro.setTarget(NECK, servoMin[NECK]);
-  maestro.setTarget(VISOR, 5960);
+  maestro.setTarget(NECK, servoMax[NECK]);
+  maestro.setTarget(VISOR, 6000);
   maestro.setTarget(WRIST, servoMin[WRIST]);
   randNumber = random(servoMin[TOP_RING],servoMax[TOP_RING]);
   maestro.setTarget(TOP_RING, randNumber);
   randNumber = random(servoMin[NECK_ROTATE],servoMax[NECK_ROTATE]);
   maestro.setTarget(NECK_ROTATE, randNumber);
-  
+   
   delay((30/tempo)*1000);
 
-  maestro.setTarget(NECK, servoMax[NECK]);
-  maestro.setTarget(VISOR, 6200);
+  maestro.setTarget(NECKLIFT, 6500);
+  maestro.setTarget(NECK, servoMin[NECK]);
+ maestro.setTarget(VISOR, 6150);
 
   delay((30/tempo)*1000);
 
-  maestro.setTarget(NECKLIFT, 7000);
+  maestro.setTarget(NECKLIFT, 5000);
   maestro.setTarget(NECK, servoMax[NECK]);
-  maestro.setTarget(VISOR, 5960);
+  maestro.setTarget(VISOR, 6000);
   maestro.setTarget(WRIST, servoMax[WRIST]);
   randNumber = random(servoMin[TOP_RING],servoMax[TOP_RING]);
   maestro.setTarget(TOP_RING, randNumber);
@@ -124,13 +126,15 @@ void bounce(float tempo) {
   maestro.setTarget(NECK_ROTATE, randNumber);
   randNumber = random(servoMin[BOTTOM_RING],servoMax[BOTTOM_RING]);
   maestro.setTarget(BOTTOM_RING, randNumber);
-  
+
   delay((30/tempo)*1000);
 
+  maestro.setTarget(NECKLIFT, 6500);
   maestro.setTarget(NECK, servoMin[NECK]);
-  maestro.setTarget(VISOR, 6200);
+ maestro.setTarget(VISOR, 6150);
 
   delay((30/tempo)*1000);
+
 }
 
 void playsong() {
@@ -172,6 +176,66 @@ void playclip() {
       // do some movement       
       break;
     case 2:
+      // do some movement       
+      break;
+    case 3:
+      // do some movement       
+      break;
+    case 4:
+      // do some movement       
+      break;
+    case 5:
+      // do some movement       
+      break;
+    case 6:
+      // do some movement       
+      break;
+    case 7:
+      // do some movement       
+      break;
+    case 8:
+      // do some movement       
+      break;
+    case 9:
+      // do some movement       
+      break;
+    case 10:
+      // do some movement       
+      break;
+    case 11:
+      // do some movement       
+      break;
+    case 12:
+      // do some movement       
+      break;
+    case 13:
+      // do some movement       
+      break;
+    case 14:
+      // do some movement       
+      break;
+    case 15:
+      // do some movement       
+      break;
+    case 16:
+      // do some movement       
+      break;
+    case 17:
+      // do some movement       
+      break;
+    case 18:
+      // do some movement       
+      break;
+    case 19:
+      // do some movement       
+      break;
+    case 20:
+      // do some movement       
+      break;
+    case 21:
+      // do some movement       
+      break;
+    case 22:
       // do some movement       
       break;
     default:
