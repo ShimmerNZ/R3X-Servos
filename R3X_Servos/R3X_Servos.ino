@@ -34,7 +34,7 @@ int servoSpeed[] = {0, 0, 0, 0, 0, 0, 0, 0}; // Adjust as needed
 //  setAcceleration takes channel number you want to limit and
 //  the acceleration limit value from 0 to 255 in units of (1/4
 //  microseconds)/(10 milliseconds) / (80 milliseconds).
-int servoAcceleration[] = {20, 0, 40, 6, 10, 5, 100, 10}; // Adjust as needed
+int servoAcceleration[] = {20, 0, 40, 6, 10, 5, 200, 10}; // Adjust as needed
 
 int clipLength[] = {0,3,6,9,5,7,9,2,7,8,4,15,2,6,8,9,13,8,4,3,4,2,4,190,160,173,147,130,141,178,140,179,165,98,170,176,172,163,157,60,187};
 int clipTempo[] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,142,120,130,115,132,120,126,91,116,117,124,92,105,120,105,96,123,112};
@@ -58,6 +58,7 @@ void loop() {
     playclip();
     //reset accel speeds for bounce
     resetservos();
+    delay(500);
   }
   playsong();
 }
@@ -76,7 +77,7 @@ void bounce(float tempo) {
 
   maestro.setTarget(NECKLIFT, 6500);
   maestro.setTarget(NECK, servoMax[NECK]);
-  maestro.setTarget(VISOR, 6150);
+  maestro.setTarget(VISOR, 6200);
  
   delay((30/tempo)*1000);
 
@@ -95,7 +96,7 @@ void bounce(float tempo) {
 
   maestro.setTarget(NECKLIFT, 6500);
   maestro.setTarget(NECK, servoMax[NECK]);
-  maestro.setTarget(VISOR, 6150);
+  maestro.setTarget(VISOR, 6200);
 
   delay((30/tempo)*1000);
 
@@ -112,7 +113,7 @@ void bounce(float tempo) {
 
   maestro.setTarget(NECKLIFT, 6500);
   maestro.setTarget(NECK, servoMax[NECK]);
-  maestro.setTarget(VISOR, 6150);
+  maestro.setTarget(VISOR, 6200);
 
   delay((30/tempo)*1000);
 
@@ -133,7 +134,7 @@ void bounce(float tempo) {
 
   maestro.setTarget(NECKLIFT, 6500);
   maestro.setTarget(NECK, servoMax[NECK]);
-  maestro.setTarget(VISOR, 6150);
+  maestro.setTarget(VISOR, 6200);
 
   delay((30/tempo)*1000);
 
@@ -155,7 +156,7 @@ void playsong() {
     delay(1000);
     float bounceDuration = float(clipLength[song])/((60/float(clipTempo[song]))*4);
     // had to decrease bounceDuration as was playing too long - need to figure out why as think calc was correct
-    for (float i=1;i<=int(bounceDuration*.9);i++) {
+    for (float i=1;i<=int(bounceDuration*.95);i++) {
       bounce(clipTempo[song]);
       Serial.println(i);
       Serial.println(int(bounceDuration));
@@ -370,7 +371,7 @@ void playclip() {
       maestro.setTarget(NECKLIFT, 3200);
       maestro.setTarget(VISOR, servoMin[VISOR]);
       maestro.setTarget(NECK, servoMin[NECK]);
-      delay(2000);             
+      delay(2500);             
       break;
     case 4:
       maestro.setAcceleration(6,15);
@@ -697,7 +698,7 @@ void playclip() {
       maestro.setTarget(NECKLIFT, 5000);
       maestro.setTarget(VISOR, servoInitial[VISOR]);
       maestro.setTarget(NECK, servoInitial[NECK]);
-      delay(1000);                
+      delay(1500);                
       break;
     case 9:
       maestro.setAcceleration(6,15);
