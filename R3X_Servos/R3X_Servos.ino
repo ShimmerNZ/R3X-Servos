@@ -34,7 +34,7 @@ int servoSpeed[] = {0, 0, 0, 0, 0, 0, 0, 0}; // Adjust as needed
 //  setAcceleration takes channel number you want to limit and
 //  the acceleration limit value from 0 to 255 in units of (1/4
 //  microseconds)/(10 milliseconds) / (80 milliseconds).
-int servoAcceleration[] = {15, 50, 40, 6, 10, 5, 75, 10}; // Adjust as needed
+int servoAcceleration[] = {12, 50, 40, 6, 10, 5, 75, 10}; // Adjust as needed
 
 int clipLength[] = {0,3,6,9,5,7,9,2,7,8,4,15,2,6,8,9,13,8,4,3,4,2,4,190,160,173,147,130,141,178,140,179,165,98,170,176,172,163,157,60,187,336};
 int clipTempo[] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,142,120,130,115,132,120,126,91,116,117,124,92,105,120,105,96,123,112,101};
@@ -54,7 +54,7 @@ void setup() {
 
 void loop() {
   //play 3 clips and then a song
-  for (int i=1;i<=1;i++){
+  for (int i=1;i<=2;i++){
     playclip();
     //reset accel speeds for bounce
     resetservos();
@@ -141,8 +141,8 @@ void bounce(float tempo) {
 }
 
 void playsong() {
-  randNumber = random(23,41);
-  //randNumber = 41;
+  //randNumber = random(23,41);
+  randNumber = 41;
   // Create a temporary buffer to hold the combined string
   char buffer[20];  // Adjust the size based on your needs
   // Format the string "Song,10" into the buffer (options - Song,Mode,Volume)
