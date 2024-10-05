@@ -39,7 +39,17 @@ int servoAcceleration[] = {12, 50, 40, 6, 10, 5, 75, 10}; // Adjust as needed
 int clipLength[] = {0,3,6,9,5,7,9,2,7,8,4,15,2,6,8,9,13,8,4,3,4,2,4,190,160,173,147,130,141,178,140,179,165,98,170,176,172,163,157,60,187,336};
 int clipTempo[] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,142,120,130,115,132,120,126,91,116,117,124,92,105,120,105,96,123,112,101};
 
+//buttons
+const int buttonPin2 = 3; // Random song button
+const int buttonPin3 = 2; // Audio clip button
+const int buttonPin4 = 4; // Specific song button
+
 void setup() {
+  //setup buttons
+    pinMode(buttonPin2, INPUT_PULLUP);
+    pinMode(buttonPin3, INPUT_PULLUP);
+    pinMode(buttonPin4, INPUT_PULLUP);
+  //setup maestro
   maestroSerial.begin(9600);
   Serial.begin(115200);
   for (int i = 0; i <= 8; i++) {
@@ -48,19 +58,40 @@ void setup() {
     maestro.setTarget(i,servoInitial[i]);
   }
     randomSeed(analogRead(0));
-    delay(6000);
+    Serial.println("startup complete");
 }
 
 
 void loop() {
-  //play 3 clips and then a song
-  for (int i=1;i<=2;i++){
-    playclip();
-    //reset accel speeds for bounce
-    resetservos();
-    delay(500);
-  }
-  playsong();
+    if (digitalRead(buttonPin2) == LOW) {
+        // Button 2 pressed - Play a random song
+        Serial.println("Button 2");
+        for (int i=1;i<=2;i++){
+        playclip();
+        //reset accel speeds for bounce
+        resetservos();
+        }
+        randNumber = random(23,40);
+        playSong(randNumber);
+    }
+    if (digitalRead(buttonPin3) == LOW) {
+        // Button 3 pressed - Play an audio clip
+        Serial.println("Button 3");
+        //for (int i=1;i<=3;i++){
+        playclip();
+        //reset accel speeds for bounce
+        resetservos();
+        //}
+    }
+    if (digitalRead(buttonPin4) == LOW) {
+        // Button 4 pressed - Play a specific song
+        Serial.println("Button 4");
+        randNumber = 41;
+        playSong(randNumber);
+    }
+
+    delay(100); // Debounce delay
+
 }
 
 void bounce(float tempo) {
@@ -140,13 +171,11 @@ void bounce(float tempo) {
 
 }
 
-void playsong() {
-  //randNumber = random(23,41);
-  randNumber = 41;
+void playSong(long songNumber) {
   // Create a temporary buffer to hold the combined string
   char buffer[20];  // Adjust the size based on your needs
   // Format the string "Song,10" into the buffer (options - Song,Mode,Volume)
-  snprintf(buffer, sizeof(buffer), "Song,%d",randNumber);
+  snprintf(buffer, sizeof(buffer), "Song,%d",songNumber);
   int song = randNumber;
   Comm.Transmit(OTHER_ARDUINO,buffer);
   Comm.Transmit(OTHER_ARDUINO,"Volume,25");
